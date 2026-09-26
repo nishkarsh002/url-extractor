@@ -14,6 +14,7 @@ type ExtractionResult = {
 };
 
 const exampleSitemap = "https://timesofindia.indiatimes.com/sitemap/today";
+const URL_LIMIT = 10_000;
 
 function csvValue(value: string) {
   return `"${value.replaceAll('"', '""')}"`;
@@ -60,7 +61,7 @@ export default function Home() {
 
       setResult(data as ExtractionResult);
       if (data.truncated) {
-        setNotice("Showing the first 1,000 URLs. The sitemap contains more entries.");
+        setNotice(`Showing the first ${URL_LIMIT.toLocaleString()} URLs. The sitemap contains more entries.`);
       } else if (data.urls.length === 0) {
         setNotice("This sitemap was valid, but it did not contain any page URLs.");
       }
@@ -113,7 +114,7 @@ export default function Home() {
           <span className="brand-mark" aria-hidden="true">S</span>
           <span>Sitemap <strong>Studio</strong></span>
         </a>
-        <div className="topbar-meta"><span className="status-dot" /> XML EXTRACTOR <span className="meta-divider">/</span> UP TO 1,000 URLS</div>
+        <div className="topbar-meta"><span className="status-dot" /> XML EXTRACTOR <span className="meta-divider">/</span> UP TO 10,000 URLS</div>
       </header>
 
       <section className="intro" id="top">
@@ -159,7 +160,7 @@ export default function Home() {
             <div className="section-kicker">OUTPUT</div>
             <h2>{result ? "Extracted URLs" : "Your results"}</h2>
           </div>
-          {result && <div className="result-count"><strong>{result.urls.length.toLocaleString()}</strong><span> / 1,000</span></div>}
+          {result && <div className="result-count"><strong>{result.urls.length.toLocaleString()}</strong><span> / {URL_LIMIT.toLocaleString()}</span></div>}
         </div>
 
         {result ? (
@@ -182,12 +183,12 @@ export default function Home() {
                   id="batch-size"
                   type="number"
                   min={1}
-                  max={1000}
+                  max={URL_LIMIT}
                   step={1}
                   value={batchSize}
                   onChange={(event) => {
                     const value = Number(event.target.value);
-                    setBatchSize(Math.min(1000, Math.max(1, Number.isFinite(value) ? value : 50)));
+                    setBatchSize(Math.min(URL_LIMIT, Math.max(1, Number.isFinite(value) ? value : 50)));
                     setBatchIndex(0);
                   }}
                 />
@@ -222,7 +223,7 @@ export default function Home() {
           <div className="empty-state">
             <div className="empty-icon" aria-hidden="true"><span /><span /><span /></div>
             <div><strong>Nothing extracted yet</strong><p>Your URLs will appear here, ready to review and export.</p></div>
-            <span className="empty-limit">MAX 1,000</span>
+            <span className="empty-limit">MAX 10,000</span>
           </div>
         )}
       </section>

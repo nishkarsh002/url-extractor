@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sitemap Studio | URL Extractor",
-  description: "Extract up to 1,000 page URLs from Times of India and Economic Times sitemaps.",
+  description: "Extract up to 10,000 page URLs from Times of India and Economic Times sitemaps.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

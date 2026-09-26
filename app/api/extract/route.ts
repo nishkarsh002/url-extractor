@@ -4,7 +4,7 @@ import { XMLParser, XMLValidator } from "fast-xml-parser";
 
 export const runtime = "nodejs";
 
-const URL_LIMIT = 1000;
+const URL_LIMIT = 10_000;
 const SITEMAP_LIMIT = 25;
 const RESPONSE_LIMIT = 5 * 1024 * 1024;
 const REQUEST_TIMEOUT_MS = 15000;
